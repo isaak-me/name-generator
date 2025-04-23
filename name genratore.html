@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fantasy Name & Creature Generator</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background: linear-gradient(to right, #1f1c2c, #928dab);
+      color: #fff;
+      text-align: center;
+      padding-top: 50px;
+    }
+    #result {
+      font-size: 2em;
+      margin: 20px;
+    }
+    button {
+      padding: 10px 25px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 12px;
+      background-color: #6a5acd;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #7b68ee;
+    }
+    select {
+      padding: 8px;
+      margin: 10px;
+      font-size: 1em;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Fantasy Name & Creature Generator</h1>
+  
+  <div>
+    <label for="gender">Choose gender:</label>
+    <select id="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="race">Choose race:</label>
+    <select id="race">
+      <option value="elf">Elf</option>
+      <option value="dwarf">Dwarf</option>
+      <option value="vampire">Vampire</option>
+      <option value="human">Human</option>
+      <option value="orc">Orc</option>
+      <option value="goblin">Goblin</option>
+      <option value="troll">Troll</option>
+      <option value="fairy">Fairy</option>
+      <option value="mermaid">Mermaid</option>
+      <option value="myth">Mythological</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="profession">Choose profession:</label>
+    <select id="profession">
+      <option value="warrior">Warrior</option>
+      <option value="mage">Mage</option>
+      <option value="assassin">Assassin</option>
+      <option value="bard">Bard</option>
+      <option value="necromancer">Necromancer</option>
+      <option value="cleric">Cleric</option>
+      <option value="ranger">Ranger</option>
+      <option value="alchemist">Alchemist</option>
+      <option value="healer">Healer</option>
+      <option value="shaman">Shaman</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="trait">Choose personality trait:</label>
+    <select id="trait">
+      <option value="brave">Brave</option>
+      <option value="wise">Wise</option>
+      <option value="deceptive">Deceptive</option>
+      <option value="stoic">Stoic</option>
+      <option value="compassionate">Compassionate</option>
+      <option value="reckless">Reckless</option>
+      <option value="loyal">Loyal</option>
+      <option value="cunning">Cunning</option>
+      <option value="optimistic">Optimistic</option>
+      <option value="melancholy">Melancholy</option>
+    </select>
+  </div>
+
+  <div id="result">Click the button to discover your character</div>
+  
+  <button onclick="generateCharacter()">Generate</button>
+
+  <script>
+    const maleNames = {
+      elf: ["Aleron", "Caelum", "Tavian", "Finian", "Thalor", "Raelen", "Jorin", "Elyon", "Varek", "Galadriel", "Elias", "Kaelen", "Corwin", "Thalion", "Raithor"],
+      dwarf: ["Thrain", "Durin", "Grimli", "Balin", "Thrain", "Odin", "Brom", "Brennan", "Haldor", "Torin", "Ulf", "Bram", "Gundar", "Thrain", "Kragar"],
+      vampire: ["Lucian", "Valerian", "Draven", "Sebastian", "Victor", "Damian", "Kieran", "Alistair", "Vlad", "Dorian", "Vesper", "Emory", "Victorion", "Balthazar", "Arian"],
+      human: ["Aiden", "Bran", "Victor", "Leon", "Liam", "Maximus", "Isaac", "Jareth", "Ezekiel", "Dante", "Milo", "Alec", "Wyatt", "Zachary", "Oliver"],
+      orc: ["Gorath", "Thrall", "Zug", "Krul", "Azog", "Borg", "Durg", "Grimtar", "Krag", "Thok", "Zarok", "Ugor", "Rag", "Borok", "Grok"],
+      goblin: ["Zig", "Glim", "Rug", "Tuk", "Lurk", "Nark", "Gribble", "Fiz", "Vim", "Bip", "Greeb", "Zunk", "Trak", "Titch", "Skizz"],
+      troll: ["Gor", "Throgg", "Vark", "Ugor", "Brukk", "Lurk", "Trollgar", "Brog", "Krug", "Stun", "Grog", "Zarn", "Tarn", "Rok", "Krul"],
+      fairy: ["Fiora", "Arielle", "Melora", "Lyra", "Talia", "Seraphina", "Liora", "Ysolde", "Elowen", "Alessa", "Rosaline", "Ophelia", "Briar", "Iris", "Celestia"],
+      mermaid: ["Ariella", "Nerida", "Thalassa", "Coraline", "Delphine", "Isla", "Cleo", "Mira", "Seraphina", "Lorelei", "Melina", "Nyssa", "Violetta", "Selene", "Darya"],
+      myth: ["Ares", "Loki", "Osiris", "Ra", "Zeus", "Thor", "Poseidon", "Hades", "Odin", "Hercules", "Perseus", "Achilles", "Ajax", "Hercules", "Heracles"]
+    };
+
+    const femaleNames = {
+      elf: ["Althaea", "Eryndor", "Lyra", "Faeriel", "Alessia", "Talia", "Seraphina", "Aeliana", "Ysolde", "Elowen", "Isolde", "Lirael", "Nessa", "Maelis", "Astra"],
+      dwarf: ["Brianna", "Kara", "Helga", "Tilda", "Runa", "Ysolde", "Sigrid", "Thora", "Alva", "Kari", "Vigga", "Dagna", "Frida", "Astrid", "Tova"],
+      vampire: ["Selene", "Lilith", "Cassandra", "Seraphine", "Eva", "Vespera", "Evangeline", "Isolde", "Mirabelle", "Liliana", "Ravenna", "Corvina", "Althea", "Solene", "Aria"],
+      human: ["Eve", "Clara", "Isabella", "Sophia", "Ava", "Zara", "Amelia", "Eloise", "Seraphina", "Lucy", "Valeria", "Maya", "Emma", "Scarlett", "Alice"],
+      orc: ["Gorza", "Azura", "Rukk", "Zara", "Thora", "Grisha", "Ulda", "Shorja", "Frezza", "Thilda", "Raza", "Grolga", "Orka", "Draza", "Voksha"],
+      goblin: ["Zara", "Bree", "Pip", "Trix", "Vila", "Glenna", "Fara", "Grinna", "Nell", "Vera", "Zint", "Nox", "Luna", "Zyra", "Glynn"],
+      troll: ["Vana", "Grulga", "Toryn", "Zora", "Kriza", "Orga", "Sultra", "Vanna", "Shara", "Korga", "Kara", "Grogda", "Iska", "Varkra", "Gora"],
+      fairy: ["Elara", "Sylphie", "Poppy", "Seraphine", "Fawn", "Iris", "Ariel", "Zephyr", "Aurora", "Marigold", "Selene", "Opal", "Nyssa", "Fiora", "Celestia"],
+      mermaid: ["Marina", "Aurelia", "Violet", "Sephira", "Indra", "Calista", "Serenity", "Mira", "Cora", "Tethys", "Amara", "Selene", "Melina", "Ariana", "Thalassa"],
+      myth: ["Athena", "Persephone", "Freya", "Hera", "Artemis", "Demeter", "Isis", "Juno", "Circe", "Selene", "Eris", "Medusa", "Hecate", "Persephone", "Clio"]
+    };
+
+    const creatures = {
+      elf: ["Unicorn", "Phoenix", "Dragon", "Griffin", "Treant", "Giant Owl", "Forest Nymph", "Wind Elemental", "Light Sprite", "Dryad", "Gryphon", "Faun", "Elemental", "Faerie Dragon"],
+      dwarf: ["Golem", "Stone Golem", "Earth Elemental", "Mountain Dragon", "Iron Giant", "Stone Colossus", "Dire Wolf", "Underground Golem", "Earth Giant", "Rock Beast"],
+      vampire: ["Wraith", "Lich", "Specter", "Ghoul", "Nightmare", "Vampire Bat", "Nosferatu", "Demon Lord", "Dark Angel", "Vampire Spawn", "Vampire Lord", "Ghost", "Revenant"],
+      human: ["Warlock", "Necromancer", "Sorcerer", "Alchemist", "Knight", "Ranger", "Archer", "Healer", "Shaman", "Cleric", "Bard", "Champion", "Paladin", "Druid"],
+      orc: ["Troll", "Dire Wolf", "Dragonspawn", "Basilisk", "War Beast", "Frost Giant", "Ogre", "Giant Lizard", "Dire Bear", "Hellhound", "Behemoth"],
+      goblin: ["Gremlin", "Imp", "Basilisk", "Forest Goblin", "Night Goblin", "Rock Goblin", "Undead Gremlin", "Trickster Spirit", "Forest Spirit", "Shadow Imp", "Scavenger"],
+      troll: ["River Troll", "Rock Troll", "Frost Giant", "Stone Giant", "Rage Troll", "Hell Beast", "Rock Elemental", "Lava Monster", "Thunder Troll", "Troll King"],
+      fairy: ["Pixie", "Sprite", "Moonlight Nymph", "Fey Beast", "Forest Spirit", "Will-O'-Wisp", "Firefly Spirit", "Star Pixie", "Light Elemental", "Whisper Sprite", "Fey Moth"],
+      mermaid: ["Kraken", "Sea Serpent", "Naiad", "Tidal Beast", "Water Elemental", "Giant Squid", "Oceanus", "Leviathan", "Giant Shark", "Coral Spirit"],
+      myth: ["Phoenix", "Hydra", "Chimera", "Cerberus", "Dragon", "Minotaur", "Griffin", "Basilisk", "Manticore", "Harpy", "Dragon King", "Cerberus Beast"]
+    };
+
+    const professions = {
+      warrior: ["Sword Fighter", "Shield Bearer", "Gladiator", "Champion", "Berserker", "Knight", "Fencer", "Mercenary", "Swordsman"],
+      mage: ["Pyromancer", "Necromancer", "Enchanter", "Spellbinder", "Alchemist", "Illusionist", "Sorcerer", "Invoker"],
+      assassin: ["Shadow Walker", "Dagger Master", "Stealth Assassin", "Nightblade", "Silent Killer"],
+      bard: ["Troubadour", "Minstrel", "Jester", "Songbird", "Harmonic Sorcerer"],
+      necromancer: ["Dark Summoner", "Grim Reaper", "Cursed Soul", "Master of Undead", "Dark Oracle"]
+    };
+
+    const traits = {
+      brave: "Fights without fear, charging into battle even against impossible odds.",
+      wise: "Possesses ancient knowledge and is able to predict outcomes and give sage advice.",
+      deceptive: "Skilled in lying and hiding true intentions to get ahead.",
+      stoic: "Keeps emotions hidden, remains calm in even the most trying situations.",
+      compassionate: "Cares for others and seeks to heal and help the world around them.",
+      reckless: "Takes dangerous risks without thinking of the consequences.",
+      loyal: "Always stands by those they care for, regardless of the odds.",
+      cunning: "Uses wit and trickery to outsmart opponents.",
+      optimistic: "Believes things will always work out, no matter how bleak.",
+      melancholy: "Tends to be introspective, often lost in deep thought or sorrow."
+    };
+
+    function generateCharacter() {
+      const gender = document.getElementById("gender").value;
+      const race = document.getElementById("race").value;
+      const profession = document.getElementById("profession").value;
+      const trait = document.getElementById("trait").value;
+
+      const nameList = gender === "male" ? maleNames[race] : femaleNames[race];
+      const name = nameList[Math.floor(Math.random() * nameList.length)];
+
+      const creatureList = creatures[race];
+      const creature = creatureList[Math.floor(Math.random() * creatureList.length)];
+
+      const professionList = professions[profession];
+      const job = professionList[Math.floor(Math.random() * professionList.length)];
+
+      const traitDescription = traits[trait];
+
+      document.getElementById("result").innerText = `${name}, the ${traitDescription} ${job} who is accompanied by a ${creature}.`;
+    }
+  </script>
+
+</body>
+</html>
